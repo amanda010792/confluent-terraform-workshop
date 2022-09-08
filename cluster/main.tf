@@ -29,6 +29,6 @@ resource "confluent_kafka_cluster" "basic" {
   region       = "us-east-2"
   basic {}
   environment {
-    id = confluent_environment.workshop_env.id
+    id = data.confluent_environment.workshop_env.id
   }
 }
