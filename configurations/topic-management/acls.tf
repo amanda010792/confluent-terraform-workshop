@@ -21,9 +21,9 @@ resource "confluent_api_key" "application-manager-kafka-api-key" {
   }
 
   managed_resource {
-    id          = confluent_kafka_cluster.basic.id
-    api_version = confluent_kafka_cluster.basic.api_version
-    kind        = confluent_kafka_cluster.basic.kind
+    id          = data.confluent_kafka_cluster.basic.id
+    api_version = data.confluent_kafka_cluster.basic.api_version
+    kind        = data.confluent_kafka_cluster.basic.kind
 
     environment {
       id = data.confluent_environment.workshop_env.id
