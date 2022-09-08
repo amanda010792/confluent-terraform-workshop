@@ -34,20 +34,20 @@ resource "confluent_api_key" "connect-manager-kafka-api-key" {
     confluent_role_binding.connect-manager-kafka-cluster-admin
   ]
 }
-resource "confluent_service_account" "app-connector" {
-  display_name = "app-connector"
+resource "confluent_service_account" "application-connector" {
+  display_name = "application-connector"
   description  = "Service account of Datagen Connector"
 }
 
 
-resource "confluent_kafka_acl" "app-connector-describe-on-cluster" {
+resource "confluent_kafka_acl" "application-connector-describe-on-cluster" {
   kafka_cluster {
     id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "CLUSTER"
   resource_name = "kafka-cluster"
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.app-connector.id}"
+  principal     = "User:${confluent_service_account.application-connector.id}"
   host          = "*"
   operation     = "DESCRIBE"
   permission    = "ALLOW"
@@ -58,14 +58,14 @@ resource "confluent_kafka_acl" "app-connector-describe-on-cluster" {
   }
 }
 
-resource "confluent_kafka_acl" "app-connector-write-on-target-topic" {
+resource "confluent_kafka_acl" "application-connector-write-on-target-topic" {
   kafka_cluster {
     id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "TOPIC"
   resource_name = data.confluent_kafka_topic.orders.topic_name
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.app-connector.id}"
+  principal     = "User:${confluent_service_account.application-connector.id}"
   host          = "*"
   operation     = "WRITE"
   permission    = "ALLOW"
@@ -76,14 +76,14 @@ resource "confluent_kafka_acl" "app-connector-write-on-target-topic" {
   }
 }
 
-resource "confluent_kafka_acl" "app-connector-create-on-data-preview-topics" {
+resource "confluent_kafka_acl" "application-connector-create-on-data-preview-topics" {
   kafka_cluster {
     id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "TOPIC"
   resource_name = "data-preview"
   pattern_type  = "PREFIXED"
-  principal     = "User:${confluent_service_account.app-connector.id}"
+  principal     = "User:${confluent_service_account.application-connector.id}"
   host          = "*"
   operation     = "CREATE"
   permission    = "ALLOW"
@@ -94,14 +94,14 @@ resource "confluent_kafka_acl" "app-connector-create-on-data-preview-topics" {
   }
 }
 
-resource "confluent_kafka_acl" "app-connector-write-on-data-preview-topics" {
+resource "confluent_kafka_acl" "application-connector-write-on-data-preview-topics" {
   kafka_cluster {
     id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "TOPIC"
   resource_name = "data-preview"
   pattern_type  = "PREFIXED"
-  principal     = "User:${confluent_service_account.app-connector.id}"
+  principal     = "User:${confluent_service_account.application-connector.id}"
   host          = "*"
   operation     = "WRITE"
   permission    = "ALLOW"
