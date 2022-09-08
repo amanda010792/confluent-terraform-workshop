@@ -63,7 +63,7 @@ resource "confluent_kafka_acl" "app-connector-write-on-target-topic" {
     id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "TOPIC"
-  resource_name = confluent_kafka_topic.orders.topic_name
+  resource_name = data.confluent_kafka_topic.orders.topic_name
   pattern_type  = "LITERAL"
   principal     = "User:${confluent_service_account.app-connector.id}"
   host          = "*"
