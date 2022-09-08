@@ -11,7 +11,7 @@ resource "confluent_role_binding" "topic-manager-kafka-cluster-admin" {
 }
 
 resource "confluent_api_key" "topic-manager-kafka-api-key" {
-  display_name = var.confluent_cloud_topic_manager_api_key
+  display_name = "topic-manager-kafka-api-key"
   description  = "Kafka API Key that is owned by 'topic-manager' service account"
   owner {
     id          = confluent_service_account.topic-manager.id
