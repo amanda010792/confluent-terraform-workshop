@@ -57,9 +57,9 @@ resource "confluent_api_key" "app-consumer-kafka-api-key" {
   }
 
   managed_resource {
-    id          = confluent_kafka_cluster.basic.id
-    api_version = confluent_kafka_cluster.basic.api_version
-    kind        = confluent_kafka_cluster.basic.kind
+    id          = data.confluent_kafka_cluster.basic.id
+    api_version = data.confluent_kafka_cluster.basic.api_version
+    kind        = data.confluent_kafka_cluster.basic.kind
 
     environment {
       id = data.confluent_environment.workshop_env.id
@@ -78,7 +78,7 @@ resource "confluent_kafka_acl" "app-producer-write-on-topic" {
   host          = "*"
   operation     = "WRITE"
   permission    = "ALLOW"
-  rest_endpoint = confluent_kafka_cluster.basic.rest_endpoint
+  rest_endpoint = data.confluent_kafka_cluster.basic.rest_endpoint
   credentials {
     key    = confluent_api_key.app-manager-kafka-api-key.id
     secret = confluent_api_key.app-manager-kafka-api-key.secret
@@ -101,9 +101,9 @@ resource "confluent_api_key" "app-producer-kafka-api-key" {
   }
 
   managed_resource {
-    id          = confluent_kafka_cluster.basic.id
-    api_version = confluent_kafka_cluster.basic.api_version
-    kind        = confluent_kafka_cluster.basic.kind
+    id          = data.confluent_kafka_cluster.basic.id
+    api_version = data.confluent_kafka_cluster.basic.api_version
+    kind        = data.confluent_kafka_cluster.basic.kind
 
     environment {
       id = data.confluent_environment.workshop_env.id
@@ -126,7 +126,7 @@ resource "confluent_kafka_acl" "app-consumer-read-on-topic" {
   host          = "*"
   operation     = "READ"
   permission    = "ALLOW"
-  rest_endpoint = confluent_kafka_cluster.basic.rest_endpoint
+  rest_endpoint = data.confluent_kafka_cluster.basic.rest_endpoint
   credentials {
     key    = confluent_api_key.application-manager-kafka-api-key.id
     secret = confluent_api_key.application-manager-kafka-api-key.secret
@@ -135,7 +135,7 @@ resource "confluent_kafka_acl" "app-consumer-read-on-topic" {
 
 resource "confluent_kafka_acl" "app-consumer-read-on-group" {
   kafka_cluster {
-    id = confluent_kafka_cluster.basic.id
+    id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "GROUP"
   // The existing values of resource_name, pattern_type attributes are set up to match Confluent CLI's default consumer group ID ("confluent_cli_consumer_<uuid>").
@@ -148,7 +148,7 @@ resource "confluent_kafka_acl" "app-consumer-read-on-group" {
   host          = "*"
   operation     = "READ"
   permission    = "ALLOW"
-  rest_endpoint = confluent_kafka_cluster.basic.rest_endpoint
+  rest_endpoint = data.confluent_kafka_cluster.basic.rest_endpoint
   credentials {
     key    = confluent_api_key.application-manager-kafka-api-key.id
     secret = confluent_api_key.application-manager-kafka-api-key.secret
