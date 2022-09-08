@@ -35,7 +35,7 @@ resource "confluent_api_key" "topic-manager-kafka-api-key" {
 }
 
 resource "confluent_service_account" "topic-consumer" {
-  display_name = env.confluent_cloud_topic_consumer_name
+  display_name = var.confluent_cloud_topic_consumer_name
   description  = "Service account to consume from 'orders' topic of 'inventory' Kafka cluster"
 }
 
@@ -79,7 +79,7 @@ resource "confluent_kafka_acl" "topic-producer-write-on-topic" {
 
 
 resource "confluent_service_account" "topic-producer" {
-  display_name = env.confluent_cloud_topic_producer_name
+  display_name = var.confluent_cloud_topic_producer_name
   description  = "Service account to produce to 'orders' topic of 'inventory' Kafka cluster"
 }
 
