@@ -16,3 +16,9 @@ variable "confluent_cloud_env_id" {
   type        = string
   sensitive   = true
 }
+
+variable "confluent_cloud_cluster_name" {
+  description = "Confluent Cloud Cluster Name"
+  type        = string
+  sensitive   = true
+}
