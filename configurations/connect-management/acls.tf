@@ -1,7 +1,7 @@
 // 'connect-manager' service account is required in this configuration to create connector and grant ACLs
 // to 'connect-producer' and 'connect-consumer' service accounts.
 resource "confluent_service_account" "connect-manager" {
-  display_name = var.TF_VAR_confluent_cloud_connect_manager_name
+  display_name = var.confluent_cloud_connect_manager_name
   description  = "Service account to manage Kafka cluster"
 }
 
