@@ -1,6 +1,6 @@
 // 'topic-manager' service account is required in this configuration to create 'orders' topic 
 resource "confluent_service_account" "topic-manager" {
-  display_name = var.confluent_cloud_topic_manager_sa_name
+  display_name = var.confluent_cloud_topic_manager_name
   description  = "Service account to manage Kafka cluster"
 }
 
