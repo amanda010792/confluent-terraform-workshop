@@ -20,3 +20,10 @@ variable "confluent_cloud_cluster_id" {
   type        = string
   sensitive   = true
 }
+
+variable "confluent_cloud_topic_manager_sa_name" {
+  description = "Confluent Cloud Topic Manager SA Name"
+  type        = string
+  sensitive   = true
+}
+
