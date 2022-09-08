@@ -16,10 +16,6 @@ data "confluent_environment" "workshop_env" {
   id = var.confluent_cloud_env_id
 }
 
-output "workshop_env" {
-  value = data.confluent_environment.workshop_env
-}
-
 # Update the config to use a cloud provider and region of your choice.
 # https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/confluent_kafka_cluster
 resource "confluent_kafka_cluster" "basic" {
