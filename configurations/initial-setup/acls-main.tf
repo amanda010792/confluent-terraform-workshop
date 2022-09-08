@@ -13,17 +13,6 @@ provider "confluent" {
   cloud_api_secret = var.confluent_cloud_api_secret
 }
 
-data "confluent_environment" "workshop_env" {
-  id = var.confluent_cloud_env_id
-}
-
-data "confluent_kafka_cluster" "basic" {
-  id = var.confluent_cloud_cluster_basic_id
-  environment {
-    id = data.confluent_environment.workshop_env.id
-  }
-}
-
 // 'app-manager' service account is required in this configuration to create 'orders' topic and grant ACLs
 // to 'app-producer' and 'app-consumer' service accounts.
 resource "confluent_service_account" "app-manager" {
