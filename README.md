@@ -96,9 +96,7 @@ initialize the project
 terraform init
 ```
 ###### Set Environment Variables
-```
 
-```
 ###### Deploy topic and ACLs cluster
 
 validate the terraform configs 
@@ -108,4 +106,19 @@ terraform validate
 deploy the terraform planned resources
 ```
 terraform apply
+```
+  
+## destroy resources 
+  
+in configurations/connect-management run: 
+```
+terraform destroy
+```
+in configurations/topic-management run: 
+```
+terraform destroy
+```
+in configurations/initial-setup run: 
+```
+terraform destroy
 ```
