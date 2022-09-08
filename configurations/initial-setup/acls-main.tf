@@ -8,11 +8,6 @@ terraform {
   }
 }
 
-provider "confluent" {
-  cloud_api_key    = var.confluent_cloud_api_key
-  cloud_api_secret = var.confluent_cloud_api_secret
-}
-
 // 'app-manager' service account is required in this configuration to create 'orders' topic and grant ACLs
 // to 'app-producer' and 'app-consumer' service accounts.
 resource "confluent_service_account" "app-manager" {
