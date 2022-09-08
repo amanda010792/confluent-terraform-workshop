@@ -1,23 +1,23 @@
-// 'application-manager' service account is required in this configuration to create 'orders' topic and grant ACLs
-// to 'app-producer' and 'app-consumer' service accounts.
-resource "confluent_service_account" "application-manager" {
-  display_name = "application-manager"
+// 'connect-manager' service account is required in this configuration to create connector and grant ACLs
+// to 'connect-producer' and 'connect-consumer' service accounts.
+resource "confluent_service_account" "connect-manager" {
+  display_name = "connect-manager"
   description  = "Service account to manage Kafka cluster"
 }
 
-resource "confluent_role_binding" "application-manager-kafka-cluster-admin" {
-  principal   = "User:${confluent_service_account.application-manager.id}"
+resource "confluent_role_binding" "connect-manager-kafka-cluster-admin" {
+  principal   = "User:${confluent_service_account.connect-manager.id}"
   role_name   = "CloudClusterAdmin"
   crn_pattern = data.confluent_kafka_cluster.basic.rbac_crn
 }
 
-resource "confluent_api_key" "application-manager-kafka-api-key" {
-  display_name = "application-manager-kafka-api-key"
-  description  = "Kafka API Key that is owned by 'application-manager' service account"
+resource "confluent_api_key" "connect-manager-kafka-api-key" {
+  display_name = "connect-manager-kafka-api-key"
+  description  = "Kafka API Key that is owned by 'connect-manager' service account"
   owner {
-    id          = confluent_service_account.application-manager.id
-    api_version = confluent_service_account.application-manager.api_version
-    kind        = confluent_service_account.application-manager.kind
+    id          = confluent_service_account.connect-manager.id
+    api_version = confluent_service_account.connect-manager.api_version
+    kind        = confluent_service_account.connect-manager.kind
   }
 
   managed_resource {
@@ -38,22 +38,22 @@ resource "confluent_api_key" "application-manager-kafka-api-key" {
   # multiple copies of this definition in the configuration which would happen if we specify it in
   # confluent_kafka_topic, confluent_kafka_acl resources instead.
   depends_on = [
-    confluent_role_binding.application-manager-kafka-cluster-admin
+    confluent_role_binding.connect-manager-kafka-cluster-admin
   ]
 }
 
-resource "confluent_service_account" "app-consumer" {
-  display_name = "app-consumer"
+resource "confluent_service_account" "connect-consumer" {
+  display_name = "connect-consumer"
   description  = "Service account to consume from 'orders' topic of 'inventory' Kafka cluster"
 }
 
-resource "confluent_api_key" "app-consumer-kafka-api-key" {
-  display_name = "app-consumer-kafka-api-key"
-  description  = "Kafka API Key that is owned by 'app-consumer' service account"
+resource "confluent_api_key" "connect-consumer-kafka-api-key" {
+  display_name = "connect-consumer-kafka-api-key"
+  description  = "Kafka API Key that is owned by 'connect-consumer' service account"
   owner {
-    id          = confluent_service_account.app-consumer.id
-    api_version = confluent_service_account.app-consumer.api_version
-    kind        = confluent_service_account.app-consumer.kind
+    id          = confluent_service_account.connect-consumer.id
+    api_version = confluent_service_account.connect-consumer.api_version
+    kind        = confluent_service_account.connect-consumer.kind
   }
 
   managed_resource {
@@ -67,37 +67,37 @@ resource "confluent_api_key" "app-consumer-kafka-api-key" {
   }
 }
 
-resource "confluent_kafka_acl" "app-producer-write-on-topic" {
+resource "confluent_kafka_acl" "connect-producer-write-on-topic" {
   kafka_cluster {
     id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "TOPIC"
   resource_name = confluent_kafka_topic.orders.topic_name
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.app-producer.id}"
+  principal     = "User:${confluent_service_account.connect-producer.id}"
   host          = "*"
   operation     = "WRITE"
   permission    = "ALLOW"
   rest_endpoint = data.confluent_kafka_cluster.basic.rest_endpoint
   credentials {
-    key    = confluent_api_key.application-manager-kafka-api-key.id
-    secret = confluent_api_key.application-manager-kafka-api-key.secret
+    key    = confluent_api_key.connect-manager-kafka-api-key.id
+    secret = confluent_api_key.connect-manager-kafka-api-key.secret
   }
 }
 
 
-resource "confluent_service_account" "app-producer" {
-  display_name = "app-producer"
+resource "confluent_service_account" "connect-producer" {
+  display_name = "connect-producer"
   description  = "Service account to produce to 'orders' topic of 'inventory' Kafka cluster"
 }
 
-resource "confluent_api_key" "app-producer-kafka-api-key" {
-  display_name = "app-producer-kafka-api-key"
-  description  = "Kafka API Key that is owned by 'app-producer' service account"
+resource "confluent_api_key" "connect-producer-kafka-api-key" {
+  display_name = "connect-producer-kafka-api-key"
+  description  = "Kafka API Key that is owned by 'connect-producer' service account"
   owner {
-    id          = confluent_service_account.app-producer.id
-    api_version = confluent_service_account.app-producer.api_version
-    kind        = confluent_service_account.app-producer.kind
+    id          = confluent_service_account.connect-producer.id
+    api_version = confluent_service_account.connect-producer.api_version
+    kind        = confluent_service_account.connect-producer.kind
   }
 
   managed_resource {
@@ -115,25 +115,25 @@ resource "confluent_api_key" "app-producer-kafka-api-key" {
 // needs to be authorized to perform 'READ' operation on both Topic and Group resources:
 // confluent_kafka_acl.app-consumer-read-on-topic, confluent_kafka_acl.app-consumer-read-on-group.
 // https://docs.confluent.io/platform/current/kafka/authorization.html#using-acls
-resource "confluent_kafka_acl" "app-consumer-read-on-topic" {
+resource "confluent_kafka_acl" "connect-consumer-read-on-topic" {
   kafka_cluster {
     id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "TOPIC"
   resource_name = confluent_kafka_topic.orders.topic_name
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.app-consumer.id}"
+  principal     = "User:${confluent_service_account.connect-consumer.id}"
   host          = "*"
   operation     = "READ"
   permission    = "ALLOW"
   rest_endpoint = data.confluent_kafka_cluster.basic.rest_endpoint
   credentials {
-    key    = confluent_api_key.application-manager-kafka-api-key.id
-    secret = confluent_api_key.application-manager-kafka-api-key.secret
+    key    = confluent_api_key.connect-manager-kafka-api-key.id
+    secret = confluent_api_key.connect-manager-kafka-api-key.secret
   }
 }
 
-resource "confluent_kafka_acl" "app-consumer-read-on-group" {
+resource "confluent_kafka_acl" "connect-consumer-read-on-group" {
   kafka_cluster {
     id = data.confluent_kafka_cluster.basic.id
   }
@@ -144,14 +144,14 @@ resource "confluent_kafka_acl" "app-consumer-read-on-group" {
   // https://docs.confluent.io/platform/current/kafka/authorization.html#prefixed-acls
   resource_name = "confluent_cli_consumer_"
   pattern_type  = "PREFIXED"
-  principal     = "User:${confluent_service_account.app-consumer.id}"
+  principal     = "User:${confluent_service_account.connect-consumer.id}"
   host          = "*"
   operation     = "READ"
   permission    = "ALLOW"
   rest_endpoint = data.confluent_kafka_cluster.basic.rest_endpoint
   credentials {
-    key    = confluent_api_key.application-manager-kafka-api-key.id
-    secret = confluent_api_key.application-manager-kafka-api-key.secret
+    key    = confluent_api_key.connect-manager-kafka-api-key.id
+    secret = confluent_api_key.connect-manager-kafka-api-key.secret
   }
 }
 
