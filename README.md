@@ -22,7 +22,7 @@ Terraform v0.14.0 # any version >= v0.14.0 is OK
 1. Open the Confluent Cloud Console
 2. In the top right menu, select "Cloud API Keys"
 3. Choose "Add Key" and select "Granular Access"
-4. For Service Account, select "Create a New One" and name is <yourname>-terraform-workshop-SA
+4. For Service Account, select "Create a New One" and name is <YOUR_NAME>-terraform-workshop-SA
 5. Download your key
 6. In the top right menu, select "Accounts & Access", select "Access" tab
 7. Click on the organization and select "Add Role Assignment" 
