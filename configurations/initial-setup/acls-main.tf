@@ -1,13 +1,4 @@
 
-terraform {
-  required_providers {
-    confluent = {
-      source  = "confluentinc/confluent"
-      version = "1.4.0"
-    }
-  }
-}
-
 // 'app-manager' service account is required in this configuration to create 'orders' topic and grant ACLs
 // to 'app-producer' and 'app-consumer' service accounts.
 resource "confluent_service_account" "app-manager" {
@@ -18,7 +9,7 @@ resource "confluent_service_account" "app-manager" {
 resource "confluent_role_binding" "app-manager-kafka-cluster-admin" {
   principal   = "User:${confluent_service_account.app-manager.id}"
   role_name   = "CloudClusterAdmin"
-  crn_pattern = data.confluent_kafka_cluster.basic.rbac_crn
+  crn_pattern = confluent_kafka_cluster.basic.rbac_crn
 }
 
 resource "confluent_api_key" "app-manager-kafka-api-key" {
@@ -31,9 +22,9 @@ resource "confluent_api_key" "app-manager-kafka-api-key" {
   }
 
   managed_resource {
-    id          = data.confluent_kafka_cluster.basic.id
-    api_version = data.confluent_kafka_cluster.basic.api_version
-    kind        = data.confluent_kafka_cluster.basic.kind
+    id          = confluent_kafka_cluster.basic.id
+    api_version = confluent_kafka_cluster.basic.api_version
+    kind        = confluent_kafka_cluster.basic.kind
 
     environment {
       id = data.confluent_environment.workshop_env.id
