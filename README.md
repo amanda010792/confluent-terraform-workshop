@@ -102,7 +102,7 @@ terraform init
 ###### Set Environment Variables
 ```
 export TF_VAR_confluent_cloud_connect_manager_name="<YOUR_NAME>-connect-manager"
-export TF_VAR_confluent_cloud_application_connector_name="<YOUR_NAME>--application-connector"
+export TF_VAR_confluent_cloud_application_connector_name="<YOUR_NAME>-application-connector"
 ```
 
 ###### Deploy topic and ACLs cluster
