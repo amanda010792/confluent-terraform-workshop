@@ -70,8 +70,8 @@ initialize the project
 terraform init
 ```
 ###### Set Environment Variables
-obtain the cluster id of the cluster you created in the previous section
-we will need to set a specific name for the service account we use, as service accounts are at the environment level, so any clusters within an environment cannot have conflicting service account names. 
+Obtain the cluster id of the cluster you created in the previous section.     
+We will need to set a specific name for the service account we use, as service accounts are at the environment level, so any clusters within an environment cannot have conflicting service account names. 
 
 ```
 export TF_VAR_confluent_cloud_cluster_id="<CONFLUENT_CLOUD_CLUSTER_ID>" 
