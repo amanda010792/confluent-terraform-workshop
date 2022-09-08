@@ -28,3 +28,31 @@ Terraform v0.14.0 # any version >= v0.14.0 is OK
 7. Click on the organization and select "Add Role Assignment" 
 8. Select the account you created (service account) and select "Organization Admin". Click Save
 
+## run the initial setup of the cluster 
+
+change to the correct directory
+```
+cd configurations/initial-setup
+```
+initialize the project 
+```
+terraform init
+```
+
+###### Set Environment Variables
+
+export TF_VAR_confluent_cloud_api_key="<CONFLUENT_CLOUD_API_KEY>" <br />
+export TF_VAR_confluent_cloud_api_secret="<CONFLUENT_CLOUD_API_SECRET>" <br />
+export TF_VAR_confluent_cloud_env_id="<CONFLUENT_CLOUD_ENVIRONMENT_ID>" <br />
+
+###### Deploy initial cluster
+
+validate the terraform configs 
+```
+terraform validate
+```
+deploy the terraform planned resources
+```
+terraform apply
+```
+
