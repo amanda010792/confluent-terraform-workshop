@@ -32,7 +32,7 @@ data "confluent_kafka_topic" "orders" {
   rest_endpoint = confluent_kafka_cluster.basic-cluster.rest_endpoint
 
   credentials {
-    key    = "<Kafka API Key for confluent_kafka_cluster.basic-cluster>"
-    secret = "<Kafka API Secret for confluent_kafka_cluster.basic-cluster>"
+    key    = confluent_api_key.connect-manager-kafka-api-key.id
+    secret = confluent_api_key.connect-manager-kafka-api-key.secret
   }
 }
