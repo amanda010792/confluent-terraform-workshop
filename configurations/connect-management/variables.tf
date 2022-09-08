@@ -20,3 +20,15 @@ variable "confluent_cloud_cluster_id" {
   type        = string
   sensitive   = true
 }
+
+variable "confluent_cloud_connect_manager_name" {
+  description = "Confluent Cloud Connect Manager Service Account Name"
+  type        = string
+  sensitive   = true
+}
+
+variable "confluent_cloud_application_connector_name" {
+  description = "Confluent Cloud Application Connector Service Account Name"
+  type        = string
+  sensitive   = true
+}
