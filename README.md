@@ -42,10 +42,10 @@ terraform init
 ###### Set Environment Variables
 
 ```
-export TF_VAR_confluent_cloud_api_key="<CONFLUENT_CLOUD_API_KEY>" <br />
-export TF_VAR_confluent_cloud_api_secret="<CONFLUENT_CLOUD_API_SECRET>" <br />
-export TF_VAR_confluent_cloud_env_id="<CONFLUENT_CLOUD_ENVIRONMENT_ID>" <br />
-export TF_VAR_confluent_cloud_cluster_name="<YOUR_NAME>_inventory" <br />
+export TF_VAR_confluent_cloud_api_key="<CONFLUENT_CLOUD_API_KEY>"
+export TF_VAR_confluent_cloud_api_secret="<CONFLUENT_CLOUD_API_SECRET>" 
+export TF_VAR_confluent_cloud_env_id="<CONFLUENT_CLOUD_ENVIRONMENT_ID>" 
+export TF_VAR_confluent_cloud_cluster_name="<YOUR_NAME>_inventory"
 ```
 
 ###### Deploy initial cluster
@@ -73,10 +73,10 @@ terraform init
 obtain the cluster id of the cluster you created in the previous section
 
 ```
-export TF_VAR_confluent_cloud_api_key="<CONFLUENT_CLOUD_API_KEY>" <br />
-export TF_VAR_confluent_cloud_api_secret="<CONFLUENT_CLOUD_API_SECRET>" <br />
-export TF_VAR_confluent_cloud_env_id="<CONFLUENT_CLOUD_ENVIRONMENT_ID>" <br />
-export TF_VAR_confluent_cloud_cluster_id="<CONFLUENT_CLOUD_CLUSTER_ID>" <br />
+export TF_VAR_confluent_cloud_api_key="<CONFLUENT_CLOUD_API_KEY>" 
+export TF_VAR_confluent_cloud_api_secret="<CONFLUENT_CLOUD_API_SECRET>" 
+export TF_VAR_confluent_cloud_env_id="<CONFLUENT_CLOUD_ENVIRONMENT_ID>" 
+export TF_VAR_confluent_cloud_cluster_id="<CONFLUENT_CLOUD_CLUSTER_ID>" 
 ```
 ###### Deploy topic and ACLs cluster
 
