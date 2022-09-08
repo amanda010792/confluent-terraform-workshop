@@ -76,7 +76,7 @@ We will need to set a specific name for the service account we use, as service a
 ```
 export TF_VAR_confluent_cloud_cluster_id="<CONFLUENT_CLOUD_CLUSTER_ID>" 
 export TF_VAR_confluent_cloud_topic_manager_name="<YOUR_NAME>-topic-manager"
-export TF_VAR_confluent_cloud_topic_consumer_name="<YOUR_NAME>-topic-consumer>"
+export TF_VAR_confluent_cloud_topic_consumer_name="<YOUR_NAME>-topic-consumer"
 export TF_VAR_confluent_cloud_topic_producer_name="<YOUR_NAME>-topic-producer"
 ```
 ###### Deploy topic and ACLs cluster
