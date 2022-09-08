@@ -19,6 +19,6 @@ data "confluent_environment" "workshop_env" {
 data "confluent_kafka_cluster" "basic" {
   id = var.confluent_cloud_cluster_id
   environment {
-    id = data.confluent_environment.workshop_env
+    id = data.confluent_environment.workshop_env.id
   }
 }
