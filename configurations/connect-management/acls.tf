@@ -72,7 +72,7 @@ resource "confluent_kafka_acl" "connect-producer-write-on-topic" {
     id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "TOPIC"
-  resource_name = confluent_kafka_topic.orders.topic_name
+  resource_name = data.confluent_kafka_topic.orders.topic_name
   pattern_type  = "LITERAL"
   principal     = "User:${confluent_service_account.connect-producer.id}"
   host          = "*"
@@ -120,7 +120,7 @@ resource "confluent_kafka_acl" "connect-consumer-read-on-topic" {
     id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "TOPIC"
-  resource_name = confluent_kafka_topic.orders.topic_name
+  resource_name = data.confluent_kafka_topic.orders.topic_name
   pattern_type  = "LITERAL"
   principal     = "User:${confluent_service_account.connect-consumer.id}"
   host          = "*"
