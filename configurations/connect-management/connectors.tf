@@ -12,7 +12,7 @@ resource "confluent_connector" "source" {
     "connector.class"          = "DatagenSource"
     "name"                     = "DatagenSourceConnector_0"
     "kafka.auth.mode"          = "SERVICE_ACCOUNT"
-    "kafka.service.account.id" = confluent_service_account.app-connector.id
+    "kafka.service.account.id" = confluent_service_account.application-connector.id
     "kafka.topic"              = data.confluent_kafka_topic.orders.topic_name
     "output.data.format"       = "JSON"
     "quickstart"               = "ORDERS"
@@ -20,9 +20,9 @@ resource "confluent_connector" "source" {
   }
 
   depends_on = [
-    confluent_kafka_acl.app-connector-describe-on-cluster,
-    confluent_kafka_acl.app-connector-write-on-target-topic,
-    confluent_kafka_acl.app-connector-create-on-data-preview-topics,
-    confluent_kafka_acl.app-connector-write-on-data-preview-topics,
+    confluent_kafka_acl.application-connector-describe-on-cluster,
+    confluent_kafka_acl.application-connector-write-on-target-topic,
+    confluent_kafka_acl.application-connector-create-on-data-preview-topics,
+    confluent_kafka_acl.application-connector-write-on-data-preview-topics,
   ]
 }
