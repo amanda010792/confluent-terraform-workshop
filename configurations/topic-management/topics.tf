@@ -6,7 +6,7 @@ resource "confluent_kafka_topic" "orders" {
   topic_name    = "orders"
   rest_endpoint = data.confluent_kafka_cluster.basic.rest_endpoint
   credentials {
-    key    = confluent_api_key.application-manager-kafka-api-key.id
-    secret = confluent_api_key.application-manager-kafka-api-key.secret
+    key    = confluent_api_key.topic-manager-kafka-api-key.id
+    secret = confluent_api_key.topic-manager-kafka-api-key.secret
   }
 }
