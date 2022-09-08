@@ -27,3 +27,14 @@ variable "confluent_cloud_topic_manager_sa_name" {
   sensitive   = true
 }
 
+variable "confluent_cloud_topic_consumer_name" {
+  description = "Confluent Cloud Topic Consumer SA Name"
+  type        = string
+  sensitive   = true
+}
+
+variable "confluent_cloud_topic_producer_name" {
+  description = "Confluent Cloud Topic Producer SA Name"
+  type        = string
+  sensitive   = true
+}
