@@ -75,9 +75,9 @@ We will need to set a specific name for the service account we use, as service a
 
 ```
 export TF_VAR_confluent_cloud_cluster_id="<CONFLUENT_CLOUD_CLUSTER_ID>" 
-export TF_VAR_confluent_cloud_topic_manager_name="<CONFLUENT_CLOUD_TOPIC_MANAGER_NAME>"
-export TF_VAR_confluent_cloud_topic_consumer_name="<CONFLUENT_CLOUD_TOPIC_CONSUMER_NAME>"
-export TF_VAR_confluent_cloud_topic_producer_name="<CONFLUENT_CLOUD_TOPIC_PRODUCER_NAME>"
+export TF_VAR_confluent_cloud_topic_manager_name="<YOUR_NAME>-topic-manager"
+export TF_VAR_confluent_cloud_topic_consumer_name="<YOUR_NAME>-topic-consumer>"
+export TF_VAR_confluent_cloud_topic_producer_name="<YOUR_NAME>-topic-producer"
 ```
 ###### Deploy topic and ACLs cluster
 
@@ -101,8 +101,8 @@ terraform init
 ```
 ###### Set Environment Variables
 ```
-export TF_VAR_confluent_cloud_connect_manager_name="<CONFLUENT_CLOUD_CONNECT_MANAGER_NAME>"
-export TF_VAR_confluent_cloud_application_connector_name="<CONFLUENT_CLOUD_APPLICATION_CONNECTOR_NAME>"
+export TF_VAR_confluent_cloud_connect_manager_name="<YOUR_NAME>-connect-manager"
+export TF_VAR_confluent_cloud_application_connector_name="<YOUR_NAME>--application-connector"
 ```
 
 ###### Deploy topic and ACLs cluster
