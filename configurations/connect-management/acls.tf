@@ -1,7 +1,7 @@
 // 'connect-manager' service account is required in this configuration to create connector and grant ACLs
 // to 'connect-producer' and 'connect-consumer' service accounts.
 resource "confluent_service_account" "connect-manager" {
-  display_name = "connect-manager"
+  display_name = env.TF_VAR_confluent_cloud_connect_manager_name
   description  = "Service account to manage Kafka cluster"
 }
 
@@ -35,7 +35,7 @@ resource "confluent_api_key" "connect-manager-kafka-api-key" {
   ]
 }
 resource "confluent_service_account" "application-connector" {
-  display_name = "application-connector"
+  display_name = env.confluent_cloud_application_connector_name
   description  = "Service account of Datagen Connector"
 }
 
