@@ -57,3 +57,18 @@ deploy the terraform planned resources
 terraform apply
 ```
 
+## deploy topics and associated acls to cluster 
+
+## run the initial setup of the cluster 
+
+change to the correct directory
+```
+cd configurations/topic-management
+```
+initialize the project 
+```
+terraform init
+```
+
+## deploy connectors and associated acls to cluster
+
