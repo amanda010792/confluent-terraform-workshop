@@ -69,7 +69,7 @@ resource "confluent_api_key" "app-consumer-kafka-api-key" {
 
 resource "confluent_kafka_acl" "app-producer-write-on-topic" {
   kafka_cluster {
-    id = confluent_kafka_cluster.basic.id
+    id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "TOPIC"
   resource_name = confluent_kafka_topic.orders.topic_name
@@ -80,8 +80,8 @@ resource "confluent_kafka_acl" "app-producer-write-on-topic" {
   permission    = "ALLOW"
   rest_endpoint = data.confluent_kafka_cluster.basic.rest_endpoint
   credentials {
-    key    = confluent_api_key.app-manager-kafka-api-key.id
-    secret = confluent_api_key.app-manager-kafka-api-key.secret
+    key    = confluent_api_key.application-manager-kafka-api-key.id
+    secret = confluent_api_key.application-manager-kafka-api-key.secret
   }
 }
 
@@ -117,7 +117,7 @@ resource "confluent_api_key" "app-producer-kafka-api-key" {
 // https://docs.confluent.io/platform/current/kafka/authorization.html#using-acls
 resource "confluent_kafka_acl" "app-consumer-read-on-topic" {
   kafka_cluster {
-    id = confluent_kafka_cluster.basic.id
+    id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "TOPIC"
   resource_name = confluent_kafka_topic.orders.topic_name
