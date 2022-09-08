@@ -1,6 +1,6 @@
 // 'topic-manager' service account is required in this configuration to create 'orders' topic 
 resource "confluent_service_account" "topic-manager" {
-  display_name = "topic-manager"
+  display_name = var.confluent_cloud_topic_manager_sa_name
   description  = "Service account to manage Kafka cluster"
 }
 
@@ -11,7 +11,7 @@ resource "confluent_role_binding" "topic-manager-kafka-cluster-admin" {
 }
 
 resource "confluent_api_key" "topic-manager-kafka-api-key" {
-  display_name = "topic-manager-kafka-api-key"
+  display_name = var.confluent_cloud_topic_manager_api_key
   description  = "Kafka API Key that is owned by 'topic-manager' service account"
   owner {
     id          = confluent_service_account.topic-manager.id
@@ -35,12 +35,12 @@ resource "confluent_api_key" "topic-manager-kafka-api-key" {
 }
 
 resource "confluent_service_account" "topic-consumer" {
-  display_name = "topic-consumer"
+  display_name = env.confluent_cloud_topic_consumer_name
   description  = "Service account to consume from 'orders' topic of 'inventory' Kafka cluster"
 }
 
 resource "confluent_api_key" "topic-consumer-kafka-api-key" {
-  display_name = "topic-consumer-kafka-api-key"
+  display_name = env.confluent_cloud_topic_consumer_name_api_key
   description  = "Kafka API Key that is owned by 'app-consumer' service account"
   owner {
     id          = confluent_service_account.topic-consumer.id
@@ -79,12 +79,12 @@ resource "confluent_kafka_acl" "topic-producer-write-on-topic" {
 
 
 resource "confluent_service_account" "topic-producer" {
-  display_name = "topic-producer"
+  display_name = env.confluent_cloud_topic_producer_name
   description  = "Service account to produce to 'orders' topic of 'inventory' Kafka cluster"
 }
 
 resource "confluent_api_key" "topic-producer-kafka-api-key" {
-  display_name = "topic-producer-kafka-api-key"
+  display_name = env.confluent_cloud_topic_producer_name_api_key
   description  = "Kafka API Key that is owned by 'topic-producer' service account"
   owner {
     id          = confluent_service_account.topic-producer.id
