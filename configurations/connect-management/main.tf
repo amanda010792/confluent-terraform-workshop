@@ -25,11 +25,11 @@ data "confluent_kafka_cluster" "basic" {
 
 data "confluent_kafka_topic" "orders" {
   kafka_cluster {
-    id = confluent_kafka_cluster.basic.id
+    id = data.confluent_kafka_cluster.basic.id
   }
 
   topic_name    = "orders"
-  rest_endpoint = confluent_kafka_cluster.basic.rest_endpoint
+  rest_endpoint = data.confluent_kafka_cluster.basic.rest_endpoint
 
   credentials {
     key    = confluent_api_key.connect-manager-kafka-api-key.id
