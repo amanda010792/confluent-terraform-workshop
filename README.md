@@ -44,7 +44,7 @@ terraform init
 export TF_VAR_confluent_cloud_api_key="<CONFLUENT_CLOUD_API_KEY>" <br />
 export TF_VAR_confluent_cloud_api_secret="<CONFLUENT_CLOUD_API_SECRET>" <br />
 export TF_VAR_confluent_cloud_env_id="<CONFLUENT_CLOUD_ENVIRONMENT_ID>" <br />
-export TF_VAR_confluent_cloud_cluster_name="<yourname>_inventory" <br />
+export TF_VAR_confluent_cloud_cluster_name="<YOUR_NAME>_inventory" <br />
 
 ###### Deploy initial cluster
 
