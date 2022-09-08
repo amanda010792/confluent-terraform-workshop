@@ -40,7 +40,7 @@ resource "confluent_service_account" "topic-consumer" {
 }
 
 resource "confluent_api_key" "topic-consumer-kafka-api-key" {
-  display_name = env.confluent_cloud_topic_consumer_name_api_key
+  display_name = "topic-consumer-kafka-api-key"
   description  = "Kafka API Key that is owned by 'app-consumer' service account"
   owner {
     id          = confluent_service_account.topic-consumer.id
@@ -84,7 +84,7 @@ resource "confluent_service_account" "topic-producer" {
 }
 
 resource "confluent_api_key" "topic-producer-kafka-api-key" {
-  display_name = env.confluent_cloud_topic_producer_name_api_key
+  display_name = "topic-producer-kafka-api-key"
   description  = "Kafka API Key that is owned by 'topic-producer' service account"
   owner {
     id          = confluent_service_account.topic-producer.id
