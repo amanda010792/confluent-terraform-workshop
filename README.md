@@ -87,3 +87,25 @@ terraform apply
 ```
 ## deploy connectors and associated acls to cluster
 
+change to the correct directory
+```
+cd configurations/connect-management
+```
+initialize the project 
+```
+terraform init
+```
+###### Set Environment Variables
+```
+
+```
+###### Deploy topic and ACLs cluster
+
+validate the terraform configs 
+```
+terraform validate
+```
+deploy the terraform planned resources
+```
+terraform apply
+```
