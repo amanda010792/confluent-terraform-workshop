@@ -63,7 +63,7 @@ terraform apply
 
 change to the correct directory
 ```
-cd configurations/topic-management
+cd ../topic-management
 ```
 initialize the project 
 ```
@@ -93,7 +93,7 @@ terraform apply
 
 change to the correct directory
 ```
-cd configurations/connect-management
+cd ../connect-management
 ```
 initialize the project 
 ```
