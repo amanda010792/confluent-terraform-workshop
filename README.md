@@ -3,6 +3,12 @@ workshop for deploying resources via confluent terraform provider
 
 ## pre-reqs 
 
+###### login to confluent cloud 
+```
+confluent login --save
+```
+
+
 ###### Ensure Terraform 0.14+ is installed
 
 Install Terraform version manager [tfutils/tfenv](https://github.com/tfutils/tfenv)
