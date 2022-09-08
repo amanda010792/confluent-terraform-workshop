@@ -78,6 +78,15 @@ export TF_VAR_confluent_cloud_api_secret="<CONFLUENT_CLOUD_API_SECRET>" <br />
 export TF_VAR_confluent_cloud_env_id="<CONFLUENT_CLOUD_ENVIRONMENT_ID>" <br />
 export TF_VAR_confluent_cloud_cluster_id="<CONFLUENT_CLOUD_CLUSTER_ID>" <br />
 ```
+###### Deploy topic and ACLs cluster
 
+validate the terraform configs 
+```
+terraform validate
+```
+deploy the terraform planned resources
+```
+terraform apply
+```
 ## deploy connectors and associated acls to cluster
 
