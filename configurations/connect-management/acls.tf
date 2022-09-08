@@ -111,10 +111,7 @@ resource "confluent_api_key" "connect-producer-kafka-api-key" {
   }
 }
 
-// Note that in order to consume from a topic, the principal of the consumer ('app-consumer' service account)
-// needs to be authorized to perform 'READ' operation on both Topic and Group resources:
-// confluent_kafka_acl.app-consumer-read-on-topic, confluent_kafka_acl.app-consumer-read-on-group.
-// https://docs.confluent.io/platform/current/kafka/authorization.html#using-acls
+
 resource "confluent_kafka_acl" "connect-consumer-read-on-topic" {
   kafka_cluster {
     id = data.confluent_kafka_cluster.basic.id
@@ -138,10 +135,6 @@ resource "confluent_kafka_acl" "connect-consumer-read-on-group" {
     id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "GROUP"
-  // The existing values of resource_name, pattern_type attributes are set up to match Confluent CLI's default consumer group ID ("confluent_cli_consumer_<uuid>").
-  // https://docs.confluent.io/confluent-cli/current/command-reference/kafka/topic/confluent_kafka_topic_consume.html
-  // Update the values of resource_name, pattern_type attributes to match your target consumer group ID.
-  // https://docs.confluent.io/platform/current/kafka/authorization.html#prefixed-acls
   resource_name = "confluent_cli_consumer_"
   pattern_type  = "PREFIXED"
   principal     = "User:${confluent_service_account.connect-consumer.id}"
@@ -155,3 +148,57 @@ resource "confluent_kafka_acl" "connect-consumer-read-on-group" {
   }
 }
 
+resource "confluent_kafka_acl" "connect-consumer-describe-on-cluster" {
+  kafka_cluster {
+    id = data.confluent_kafka_cluster.basic.id
+  }
+  resource_type = "CLUSTER"
+  resource_name = "kafka-cluster"
+  pattern_type  = "LITERAL"
+  principal     = "User:${confluent_service_account.connect-consumer.id}"
+  host          = "*"
+  operation     = "DESCRIBE"
+  permission    = "ALLOW"
+  rest_endpoint = data.confluent_kafka_cluster.basic.rest_endpoint
+  credentials {
+    key    = confluent_api_key.connect-manager-kafka-api-key.id
+    secret = confluent_api_key.connect-manager-kafka-api-key.secret
+  }
+}
+
+
+resource "confluent_kafka_acl" "connect-consumer-create-on-data-preview-topics" {
+  kafka_cluster {
+    id = data.confluent_kafka_cluster.basic.id
+  }
+  resource_type = "TOPIC"
+  resource_name = "data-preview"
+  pattern_type  = "PREFIXED"
+  principal     = "User:${confluent_service_account.connect-consumer.id}"
+  host          = "*"
+  operation     = "CREATE"
+  permission    = "ALLOW"
+  rest_endpoint = data.confluent_kafka_cluster.basic.rest_endpoint
+  credentials {
+    key    = confluent_api_key.connect-manager-kafka-api-key.id
+    secret = confluent_api_key.connect-manager-kafka-api-key.secret
+  }
+}
+
+resource "confluent_kafka_acl" "app-connector-write-on-data-preview-topics" {
+  kafka_cluster {
+    id = data.confluent_kafka_cluster.basic.id
+  }
+  resource_type = "TOPIC"
+  resource_name = "data-preview"
+  pattern_type  = "PREFIXED"
+  principal     = "User:${confluent_service_account.connect-producer.id}"
+  host          = "*"
+  operation     = "WRITE"
+  permission    = "ALLOW"
+  rest_endpoint = data.confluent_kafka_cluster.basic.rest_endpoint
+  credentials {
+    key    = confluent_api_key.connect-manager-kafka-api-key.id
+    secret = confluent_api_key.connect-manager-kafka-api-key.secret
+  }
+}
