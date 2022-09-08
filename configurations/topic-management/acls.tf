@@ -103,10 +103,7 @@ resource "confluent_api_key" "topic-producer-kafka-api-key" {
   }
 }
 
-// Note that in order to consume from a topic, the principal of the consumer ('app-consumer' service account)
-// needs to be authorized to perform 'READ' operation on both Topic and Group resources:
-// confluent_kafka_acl.app-consumer-read-on-topic, confluent_kafka_acl.app-consumer-read-on-group.
-// https://docs.confluent.io/platform/current/kafka/authorization.html#using-acls
+
 resource "confluent_kafka_acl" "topic-consumer-read-on-topic" {
   kafka_cluster {
     id = data.confluent_kafka_cluster.basic.id
@@ -130,10 +127,6 @@ resource "confluent_kafka_acl" "topic-consumer-read-on-group" {
     id = data.confluent_kafka_cluster.basic.id
   }
   resource_type = "GROUP"
-  // The existing values of resource_name, pattern_type attributes are set up to match Confluent CLI's default consumer group ID ("confluent_cli_consumer_<uuid>").
-  // https://docs.confluent.io/confluent-cli/current/command-reference/kafka/topic/confluent_kafka_topic_consume.html
-  // Update the values of resource_name, pattern_type attributes to match your target consumer group ID.
-  // https://docs.confluent.io/platform/current/kafka/authorization.html#prefixed-acls
   resource_name = "confluent_cli_consumer_"
   pattern_type  = "PREFIXED"
   principal     = "User:${confluent_service_account.topic-consumer.id}"
