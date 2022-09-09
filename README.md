@@ -136,3 +136,10 @@ in configurations/initial-setup run:
 ```
 terraform destroy
 ```
+
+## Additional Resources!
+[Confluent Provider on Terraform Registry](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs)     
+[Confluent Terraform Provider Docs](https://docs.confluent.io/cloud/current/get-started/terraform-provider.html)     
+[Confluent Example Configurations](https://github.com/confluentinc/terraform-provider-confluent/tree/master/examples/configurations)       
+[Confluent Terraform Provider Webinar & Demo](https://www.confluent.io/resources/demo/confluent-terraform-provider-independent-network-lifecycle-management/?utm_source=linkedIn&utm_medium=organicsocial&utm_campaign=tm.social_cp.q3-bundle-launch)    
+
