@@ -1,6 +1,6 @@
 output "resource-ids" {
   value = <<-EOT
-  Environment ID:   ${data.confluent_environment.workshop-env.id}
+  Environment ID:   ${data.confluent_environment.workshop_env.id}
   Kafka Cluster ID: ${data.confluent_kafka_cluster.basic.id}
   Kafka topic name: ${data.confluent_kafka_topic.orders.topic_name}
   Service Accounts and their Kafka API Keys (API Keys inherit the permissions granted to the owner):
