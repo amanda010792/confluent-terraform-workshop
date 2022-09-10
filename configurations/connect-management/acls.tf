@@ -39,6 +39,25 @@ resource "confluent_service_account" "application-connector" {
   description  = "Service account of Datagen Connector"
 }
 
+resource "confluent_api_key" "application-connector-kafka-api-key" {
+  display_name = "application-connector-kafka-api-key"
+  description  = "Kafka API Key that is owned by 'application-connector' service account"
+  owner {
+    id          = confluent_service_account.application-connector.id
+    api_version = confluent_service_account.application-connector.api_version
+    kind        = confluent_service_account.application-connector.kind
+  }
+
+  managed_resource {
+    id          = data.confluent_kafka_cluster.basic.id
+    api_version = data.confluent_kafka_cluster.basic.api_version
+    kind        = data.confluent_kafka_cluster.basic.kind
+
+    environment {
+      id = data.confluent_environment.workshop_env.id
+    }
+  }
+}
 
 resource "confluent_kafka_acl" "application-connector-describe-on-cluster" {
   kafka_cluster {
